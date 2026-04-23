@@ -293,6 +293,25 @@ def get_bot_response(user_message):
     """Simple rule-based chatbot - works everywhere"""
     q = user_message.lower().strip()
     
+    # If message is too short, check for direct matches first
+    if len(q) <= 3:
+        # Direct single letter or short matches
+        short_map = {
+            "h": "hello",
+            "hi": "hello",
+            "hlo": "hello",
+            "b": "bijli",
+            "p": "paani",
+            "g": "gas",
+            "e": "emergency",
+            "f": "fuel",
+            "n": "namaz",
+            "m": "mausam",
+            "bl": "blood",
+        }
+        if q in short_map:
+            q = short_map[q]
+    
     # Remove common Urdu/English filler words and special characters
     q_clean = q.replace("mujhe", "").replace("kya", "").replace("hai", "").replace("haha", "").replace("?", "").replace("!", "").replace(".", "").strip()
     
